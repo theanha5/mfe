@@ -14,19 +14,17 @@ module.exports = {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          dashboard: `dashboard@${domain}/dashboard/latest/remoteEntry.js`,
+          // dashboard: `dashboard@${domain}/dashboard/latest/remoteEntry.js`,
+          // marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
+          marketing: "marketing@http://localhost:8081/remoteEntry.js",
         },
         shared: {
           ...packageJsonDeps,
           react: {
-            singleton: true,
             eager: true,
-            requiredVersion: packageJsonDeps.react,
           },
           "react-dom": {
-            singleton: true,
             eager: true,
-            requiredVersion: packageJsonDeps["react-dom"],
           },
         },
       })
