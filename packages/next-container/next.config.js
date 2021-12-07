@@ -1,20 +1,20 @@
 /** @type {import('next').NextConfig} */
 const packageJson = require("./package.json");
 const packageJsonDeps = packageJson.dependencies;
-const path = require("path");
+
+const domain = process.env.DASHBOARD_APP_URL;
 
 module.exports = {
   reactStrictMode: true,
   webpack5: true,
   webpack(config, options) {
     const { ModuleFederationPlugin } = options.webpack.container;
-    const { isServer } = options;
 
     config.plugins.push(
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          dashboard: "dashboard@http://localhost:8083/remoteEntry.js",
+          dashboard: `dashboard@${domain}/dashboard/latest/remoteEntry.js`,
         },
         shared: {
           ...packageJsonDeps,
